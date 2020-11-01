@@ -36,13 +36,16 @@ namespace DataBase_uchet
         }
         public void MainForm_Load(object sender, EventArgs e)
         {
+            label1.Text = "HR Manager";
             if (user == "admin")
             {
+                label1.Text = "Administrator";
                 editCheck.Visible = true;
                 editCheck.Enabled = true;
                 addButton.Visible = true;
                 addButton.Enabled = true;
             }
+
             LoadInfo();
         }
 
@@ -115,39 +118,14 @@ namespace DataBase_uchet
             {
                 dataGridView1.ReadOnly = false;
                 updBtn.Visible = true;
+                updBtn.Enabled = true;
             }
             else
             {
                 dataGridView1.ReadOnly = true;
                 updBtn.Visible = false;
+
             }
-        }
-
-        //Update Button
-        private void updBtn_Click_1(object sender, EventArgs e)
-        {
-            string id    = dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Lname = dataGridView1[1, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Fname = dataGridView1[2, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Mname = dataGridView1[3, dataGridView1.CurrentRow.Index].Value.ToString();
-            string columnName = dataGridView1.CurrentCell.OwningColumn.HeaderText;
-            string value = dataGridView1.CurrentCell.Value.ToString();
-
-           /* if (columnName == "Date Of Birth")
-            {
-                string [] array1 = new string[3];
-                array1 = value.Split('.',)
-            }*/
-
-            //19.02.2002 = 2002-02-19
-
-            db.openConnection();
-            MySqlCommand command = new MySqlCommand("UPDATE `staff` SET `" + columnName + "`= '" + value + "' WHERE " +
-                " `ID` = " + id + "", db.GetConnection());
-
-            if (command.ExecuteNonQuery() == 1)
-                MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
-            db.closeConnection();
         }
         private void lNameInp_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -222,16 +200,49 @@ namespace DataBase_uchet
             if (e.ColumnIndex == 15)
                 if (dataGridView1.Rows[e.RowIndex].Cells[15].Value.ToString() == "...")
                 {
-                    Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
+                        dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() + " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString() + " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
                     nickf.Show();
                 }
             if(user != "admin")
                 if (e.ColumnIndex == 14)
                     if (dataGridView1.Rows[e.RowIndex].Cells[14].Value.ToString() == "...")
                     {
-                        Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                        Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
+                           dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString()+ " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()+ " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
                         nickf.Show();
                     }
+        }
+
+        private void updBtn_Click(object sender, EventArgs e)
+        {
+            string id = dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Lname = dataGridView1[1, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Fname = dataGridView1[2, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Mname = dataGridView1[3, dataGridView1.CurrentRow.Index].Value.ToString();
+            string columnName = dataGridView1.CurrentCell.OwningColumn.HeaderText;
+            string value = dataGridView1.CurrentCell.Value.ToString();
+
+            /* if (columnName == "Date Of Birth")
+             {
+                 string [] array1 = new string[3];
+                 array1 = value.Split('.',)
+             }*/
+
+            //19.02.2002 = 2002-02-19
+
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("UPDATE `staff` SET `" + columnName + "`= '" + value + "' WHERE " +
+                " `ID` = " + id + "", db.GetConnection());
+
+            if (command.ExecuteNonQuery() == 1)
+                MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
+
+            db.closeConnection();
         }
     }
 }

@@ -25,7 +25,6 @@ namespace DataBase_uchet
         {
             Form1 fm = new Form1();
 
-            //button2.BringToFront();
             login.Left = (fm.Width/2) - (login.Width/2);
             pass.Left = (fm.Width / 2) - (pass.Width / 2);
             loginBtn.Left = (fm.Width / 2) - (loginBtn.Width / 2);

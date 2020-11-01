@@ -347,7 +347,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(845, 100);
+            this.panel1.Size = new System.Drawing.Size(822, 100);
             this.panel1.TabIndex = 31;
             // 
             // label14
@@ -369,7 +369,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 650);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(845, 100);
+            this.panel2.Size = new System.Drawing.Size(822, 100);
             this.panel2.TabIndex = 32;
             // 
             // depBox
@@ -532,7 +532,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(433, 270);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(374, 230);
+            this.groupBox1.Size = new System.Drawing.Size(347, 230);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Social Networks";
@@ -710,7 +710,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(845, 750);
+            this.ClientSize = new System.Drawing.Size(822, 750);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);

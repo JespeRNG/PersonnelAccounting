@@ -15,10 +15,8 @@ namespace DataBase_uchet
 {
     public partial class AddForm : Form
     {
-        int cntr = 0;
+        static int cntr = 0;
         Validation val = new Validation();
-        private static object controldefaults;
-
         public AddForm()
         {
             InitializeComponent();
@@ -32,12 +30,12 @@ namespace DataBase_uchet
         public static void ClearFormControls(Form form)
         {
             foreach (Control control in form.Controls)
-            {
                 if (control is PictureBox)
-                {
                     form.Controls.Remove(control);
-                }
-            }
+
+            foreach (Control control in form.Controls)
+                if (control is PictureBox)
+                    form.Controls.Remove(control);
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -126,10 +124,7 @@ namespace DataBase_uchet
                 netcmd.Parameters.Add("@telegram", MySqlDbType.VarChar).Value = "-";
             else
             {
-                PictureBox p = val.CreateImg(false, (telegram.Left + telegram.Width) + 5, telegram.Top + 3);
-                this.Controls.Add(p);
-                groupBox1.Controls.Add(p);
-                p.BringToFront();
+                this.Controls.Add(val.CreateImg(false, (groupBox1.Left + groupBox1.Width) + 5, groupBox1.Top + 55));
                 isValid = false;
             }
             if (val.isCombined(instagram.Text, 0, 16))
@@ -138,10 +133,7 @@ namespace DataBase_uchet
                 netcmd.Parameters.Add("@instagram", MySqlDbType.VarChar).Value = "-";
             else
             {
-                PictureBox p = val.CreateImg(false, (instagram.Left + instagram.Width) + 5, instagram.Top + 3);
-                this.Controls.Add(p);
-                groupBox1.Controls.Add(p);
-                p.BringToFront();
+                this.Controls.Add(val.CreateImg(false, (groupBox1.Left + groupBox1.Width) + 5, groupBox1.Top + 105));
                 isValid = false;
             }
             if (val.isCombined(twitter.Text, 0, 16))
@@ -150,10 +142,7 @@ namespace DataBase_uchet
                 netcmd.Parameters.Add("@twitter", MySqlDbType.VarChar).Value = "-";
             else
             {
-                PictureBox p = val.CreateImg(false, (twitter.Left + twitter.Width) + 5, twitter.Top + 3);
-                this.Controls.Add(p);
-                groupBox1.Controls.Add(p);
-                p.BringToFront();
+                this.Controls.Add(val.CreateImg(false, (groupBox1.Left + groupBox1.Width) + 5, groupBox1.Top + 155));
                 isValid = false;
             }
 
@@ -206,7 +195,9 @@ namespace DataBase_uchet
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Are you sure you want to close this window?\nAll the filled fields will be erased!", "Closing", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                this.Close();
         }
     }
 }
