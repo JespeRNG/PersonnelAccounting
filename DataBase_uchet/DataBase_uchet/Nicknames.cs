@@ -17,7 +17,7 @@ namespace DataBase_uchet
 {
     public partial class Nicknames : Form
     {
-        string id, teleg, inst, twit, fio;
+        string id, teleg, inst, twit, fio, user;
         DB db = new DB();
         MySqlCommand cmd = new MySqlCommand();
         Validation val = new Validation();
@@ -32,11 +32,18 @@ namespace DataBase_uchet
                 if (control is PictureBox)
                     form.Controls.Remove(control);
         }
-        public Nicknames(string id, string fio)
+        public Nicknames(string id, string fio, string user)
         {
             InitializeComponent();
             this.id = id;
+            this.id = user;
             this.fio = fio;
+            if (user == "hrmanager")
+            {
+                button1.Visible = false;
+                button1.Enabled = false;
+                closeBtn.Left = (this.Width / 2) - closeBtn.Width / 2;
+            }
             getInfo(id);
         }
         public void getInfo(string id)

@@ -113,7 +113,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="imgs\refreshPNG.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="imgs\crossPNG.png" />
   </ItemGroup>

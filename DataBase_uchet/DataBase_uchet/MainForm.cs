@@ -21,6 +21,7 @@ namespace DataBase_uchet
         string user;
         DataTable DT;
         DB db = new DB();
+        DataView DV = new DataView();
         public MainForm()
         {
         }
@@ -113,7 +114,6 @@ namespace DataBase_uchet
 
         private void editCheck_CheckedChanged(object sender, EventArgs e)
         {
-
             if (editCheck.Checked == true)
             {
                 dataGridView1.ReadOnly = false;
@@ -124,19 +124,7 @@ namespace DataBase_uchet
             {
                 dataGridView1.ReadOnly = true;
                 updBtn.Visible = false;
-
             }
-        }
-        private void lNameInp_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            lName = lNameInp.Text;
-            Request();
-        }
-        private void Request()
-        {
-            DataView DV = new DataView(DT);
-            DV.RowFilter = string.Format("`Last Name` LIKE '%{0}%'", lName);
-            dataGridView1.DataSource = DV;
         }
 
         //FormClose Button
@@ -203,7 +191,7 @@ namespace DataBase_uchet
                     Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
                         dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() + " " +
                            dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString() + " " +
-                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), user);
                     nickf.Show();
                 }
             if(user != "admin")
@@ -213,7 +201,7 @@ namespace DataBase_uchet
                         Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
                            dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString()+ " " +
                            dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()+ " " +
-                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
+                           dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), user);
                         nickf.Show();
                     }
         }
@@ -243,6 +231,54 @@ namespace DataBase_uchet
                 MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
 
             db.closeConnection();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            rfrshBtn_Click(sender, e);
+        }
+        StringBuilder sb = new StringBuilder();
+        //Finding by fields
+        private void Request(string inp, string column)
+        {
+            DV = new DataView(DT);
+
+            if(sb.Length>0)
+            {
+                if (lNameInp.Text.Length > 0)
+                {
+                    sb.Append(" AND ");
+                    sb.Append("`Last Name` LIKE '%" + lNameInp.Text + "%'");
+                }
+                if (fNameInp.Text.Length > 0)
+                {
+                    sb.Append(" AND ");
+                    sb.Append("`First Name` LIKE '%" + fNameInp.Text + "%'");
+                }
+            }
+            else
+            {
+                if(lNameInp.Text.Length > 0)
+                {
+                    sb.Append(column + " LIKE '%" + lNameInp.Text + "%'");
+                }
+                if (fNameInp.Text.Length > 0)
+                {
+                    sb.Append(column + " LIKE '%" + fNameInp.Text + "%'");
+                }
+            }
+            MessageBox.Show(sb.ToString());
+            DV.RowFilter = sb.ToString();
+
+            dataGridView1.DataSource = DV;
+        }
+        private void lNameInp_TextChanged(object sender, EventArgs e)
+        {
+            Request(lNameInp.Text, "`Last Name`");
+        }
+        private void fNameInp_TextChanged(object sender, EventArgs e)
+        {
+            Request(fNameInp.Text, "`First Name`");
         }
     }
 }

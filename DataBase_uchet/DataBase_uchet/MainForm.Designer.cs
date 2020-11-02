@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fNameInp = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.rfrshBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,16 +39,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.editCheck = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.addButton = new System.Windows.Forms.Button();
             this.updBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.fNameInp);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.rfrshBtn);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label2);
@@ -57,14 +65,49 @@
             this.panel1.Size = new System.Drawing.Size(1575, 100);
             this.panel1.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(895, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "First Name";
+            // 
+            // fNameInp
+            // 
+            this.fNameInp.Font = new System.Drawing.Font("Neo Sans", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fNameInp.Location = new System.Drawing.Point(868, 49);
+            this.fNameInp.Name = "fNameInp";
+            this.fNameInp.Size = new System.Drawing.Size(116, 24);
+            this.fNameInp.TabIndex = 10;
+            this.fNameInp.TextChanged += new System.EventHandler(this.fNameInp_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(1518, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 16);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Refresh";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // rfrshBtn
             // 
             this.rfrshBtn.BackColor = System.Drawing.Color.Transparent;
-            this.rfrshBtn.Location = new System.Drawing.Point(1261, 30);
+            this.rfrshBtn.BackgroundImage = global::DataBase_uchet.Properties.Resources.refreshPNG;
+            this.rfrshBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.rfrshBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rfrshBtn.FlatAppearance.BorderSize = 0;
+            this.rfrshBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rfrshBtn.ForeColor = System.Drawing.Color.DarkCyan;
+            this.rfrshBtn.Location = new System.Drawing.Point(1495, 72);
             this.rfrshBtn.Name = "rfrshBtn";
-            this.rfrshBtn.Size = new System.Drawing.Size(104, 33);
+            this.rfrshBtn.Size = new System.Drawing.Size(20, 20);
             this.rfrshBtn.TabIndex = 8;
-            this.rfrshBtn.Text = "Refresh";
             this.rfrshBtn.UseVisualStyleBackColor = false;
             this.rfrshBtn.Click += new System.EventHandler(this.rfrshBtn_Click);
             // 
@@ -100,7 +143,7 @@
             this.lNameInp.Name = "lNameInp";
             this.lNameInp.Size = new System.Drawing.Size(116, 24);
             this.lNameInp.TabIndex = 3;
-            this.lNameInp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lNameInp_KeyPress);
+            this.lNameInp.TextChanged += new System.EventHandler(this.lNameInp_TextChanged);
             // 
             // label1
             // 
@@ -129,17 +172,29 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 761);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1575, 100);
             this.panel2.TabIndex = 1;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Neo Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(1042, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(521, 20);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Copyright © 2020 Fediuk Inc. All rights reserved.            Ukraine";
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(0, 98);
@@ -196,6 +251,8 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -215,5 +272,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button rfrshBtn;
         private System.Windows.Forms.Button updBtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox fNameInp;
     }
 }
