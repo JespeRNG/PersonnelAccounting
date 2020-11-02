@@ -36,7 +36,7 @@ namespace DataBase_uchet
         {
             InitializeComponent();
             this.id = id;
-            this.id = user;
+            this.user = user;
             this.fio = fio;
             if (user == "hrmanager")
             {

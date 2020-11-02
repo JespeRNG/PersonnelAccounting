@@ -119,5 +119,11 @@
   <ItemGroup>
     <None Include="imgs\crossPNG.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="imgs\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgs\crossedEye.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

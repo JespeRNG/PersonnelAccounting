@@ -15,7 +15,7 @@ namespace DataBase_uchet
 {
     public partial class Form1 : Form
     {
-        int triesToEnter = 0;
+        static int triesToEnter = 0;
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +24,13 @@ namespace DataBase_uchet
         private void Form1_Load(object sender, EventArgs e)
         {
             Form1 fm = new Form1();
-
+            label3.Left = Left = (fm.Width / 2) - (label3.Width / 2);
+            label4.Left = Left = (fm.Width / 2) - (label4.Width / 2);
+            eyeBox.Left = pass.Location.X + pass.Width-20;
             login.Left = (fm.Width/2) - (login.Width/2);
             pass.Left = (fm.Width / 2) - (pass.Width / 2);
             loginBtn.Left = (fm.Width / 2) - (loginBtn.Width / 2);
             pass.UseSystemPasswordChar = true;
-            passVisible.Left = pass.Left + pass.Width + 10;
             label1.Left = (fm.Width / 2) - (label1.Width / 2);
             label2.Left = (fm.Width / 2) - (label2.Width / 2);
             label2.Hide();
@@ -41,56 +42,76 @@ namespace DataBase_uchet
         {
             DB db = new DB();
 
-            MySqlCommand cmd = new MySqlCommand("SELECT `AbleToLogin` FROM `users` WHERE Login = @login AND Pass= @pass",db.GetConnection());
+            MySqlCommand cmd = new MySqlCommand("SELECT `AbleToLogin` FROM `users` WHERE Login = @login",db.GetConnection());
             cmd.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass.Text;
             cmd.Parameters.Add("@login", MySqlDbType.VarChar).Value = login.Text;
 
             db.openConnection();
-
             string ableToLogin = (string)cmd.ExecuteScalar();
+            cmd.CommandText = "SELECT `Pass` FROM `users` WHERE Login = @login";
+            string password = (string)cmd.ExecuteScalar();
+            db.closeConnection();
 
             if(ableToLogin == "yes")
             {
-                MainForm mf = new MainForm(login.Text);
-                mf.Show();
-                this.Hide();
-            }
-            else
-            {
-                if (ableToLogin == "yes")
+                if (pass.Text == password)
                 {
-                    if (login.Text == "hrmanager")
-                    {
-                        triesToEnter++;
-                        if (triesToEnter > 2)
-                        {
-                            MessageBox.Show("The login for HR Manager has been locked!");
-                            cmd.CommandText = "UPDATE `users` SET `AbleToLogin`=@able WHERE `Login`=\"hrmanager\"";
-                            cmd.Parameters.Add("@able", MySqlDbType.VarChar).Value = "no";
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
+                    MainForm mf = new MainForm(login.Text, this);
+                    mf.Show();
+                    this.Hide();
+                    triesToEnter = 0;
+                    pass.Text = "";
+                    login.Text = "";
+                    label2.Hide();
                 }
                 else
                 {
-                    if(login.Text == "hrmanager")
-                        label2.Text = "Login has been blocked for HR Manager!";
-                    else
-                        label2.Text = "Wrong credentials!";
+                    triesToEnter++;
+                    if (triesToEnter > 2)
+                    {
+                        label2.Text = "Authentication has been blocked!";
+                        MessageBox.Show("Authentication has been blocked\n       after 3 atempts to enter!");
+                        cmd.CommandText = "UPDATE `users` SET `AbleToLogin`=\"no\" WHERE 1";
+                        db.openConnection();
+                        cmd.ExecuteNonQuery();
+                        db.closeConnection();
+                        label2.Left = (this.Width / 2) - label2.Width / 2;
+                        label2.Show();
+                    }
+                    label2.Text = "Wrong login or password!";
+                    label2.Left = (this.Width / 2) - label2.Width / 2;
+                    label2.Show();
                 }
-                label2.Left = (this.Width / 2) - (label2.Width / 2);
+            }
+            else if (ableToLogin == null)
+            {
+                label2.Text = "Wrong login or password!";
+                label2.Left = (this.Width / 2) - label2.Width / 2;
+                label2.Show();
+            }
+            else 
+            {
+                label2.Text = "Authentication has been blocked!";
+                label2.Left = (this.Width / 2) - label2.Width / 2;
                 label2.Show();
             }
 
-            db.closeConnection();
+            
         }
-
-        private void passVisible_CheckedChanged(object sender, EventArgs e)
+        bool check = false;
+        private void eyeBox_Click(object sender, EventArgs e)
         {
-            if (passVisible.Checked == true)
-                pass.UseSystemPasswordChar = false;
-            else
+            if (check == false) check = true; else check = false;
+            if (check == false)
+            {
+                eyeBox.Image = Image.FromFile(@"..\..\imgs\crossedEye.png");
                 pass.UseSystemPasswordChar = true;
+            }
+            else
+            {
+                eyeBox.Image = Image.FromFile(@"..\..\imgs\eye.png");
+                pass.UseSystemPasswordChar = false;
+            }
         }
     }
 }

@@ -54,9 +54,9 @@ namespace DataBase_uchet
                 , db.GetConnection());
 
             //Dates
-            command.Parameters.Add("@dateofb", MySqlDbType.Date).Value = DateOfBirth.Value.ToString("yyyy-MM-dd");
-            command.Parameters.Add("@hiredate", MySqlDbType.Date).Value = hireDate.Value.ToString("yyyy-MM-dd");
-            command.Parameters.Add("@dateofu", MySqlDbType.Date).Value = dateofupd.Value.ToString("yyyy-MM-dd");
+            command.Parameters.Add("@dateofb", MySqlDbType.VarChar).Value = DateOfBirth.Value.ToString("dd.MM.yyyy");
+            command.Parameters.Add("@hiredate", MySqlDbType.VarChar).Value = hireDate.Value.ToString("dd.MM.yyyy");
+            command.Parameters.Add("@dateofu", MySqlDbType.VarChar).Value = dateofupd.Value.ToString("dd.MM.yyyy");
 
             if (val.isSymbolic(lName.Text,3,16)==true && val.isSymbolic(fName.Text,3,16) == true && val.isSymbolic(mName.Text, 3, 16) == true)
             {

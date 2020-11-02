@@ -63,6 +63,16 @@ namespace DataBase_uchet.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap crossedEye {
+            get {
+                object obj = ResourceManager.GetObject("crossedEye", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap crossPNG {
             get {
                 object obj = ResourceManager.GetObject("crossPNG", resourceCulture);
@@ -76,6 +86,16 @@ namespace DataBase_uchet.Properties {
         internal static System.Drawing.Bitmap refreshPNG {
             get {
                 object obj = ResourceManager.GetObject("refreshPNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search {
+            get {
+                object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
