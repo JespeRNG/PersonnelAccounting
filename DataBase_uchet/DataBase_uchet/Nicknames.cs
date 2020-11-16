@@ -24,13 +24,7 @@ namespace DataBase_uchet
 
         public static void ClearFormControls(Form form)
         {
-            foreach (Control control in form.Controls)
-                if (control is PictureBox)
-                    form.Controls.Remove(control);
-
-            foreach (Control control in form.Controls)
-                if (control is PictureBox)
-                    form.Controls.Remove(control);
+            
         }
         public Nicknames(string id, string fio, string user)
         {
@@ -152,11 +146,11 @@ namespace DataBase_uchet
                 else
                 {
                     if (!val.isCombined(twitBox.Text, 3, 16))
-                        this.Controls.Add(val.CreateImg(false, (twitBox.Left + twitBox.Width) + 5, twitBox.Top + 3));
+                        this.Controls.Add(val.CreateImg((twitBox.Left + twitBox.Width) + 5, twitBox.Top + 3, "twitter"));
                     if (!val.isCombined(instaBox.Text, 3, 16))
-                        this.Controls.Add(val.CreateImg(false, (instaBox.Left + instaBox.Width) + 5, instaBox.Top + 3));
+                        this.Controls.Add(val.CreateImg((instaBox.Left + instaBox.Width) + 5, instaBox.Top + 3, "instagram"));
                     if (!val.isCombined(telegBox.Text, 3, 16))
-                        this.Controls.Add(val.CreateImg(false, (telegBox.Left + telegBox.Width) + 5, telegBox.Top + 3));
+                        this.Controls.Add(val.CreateImg((telegBox.Left + telegBox.Width) + 5, telegBox.Top + 3, "telegram"));
                 }
             }
         }

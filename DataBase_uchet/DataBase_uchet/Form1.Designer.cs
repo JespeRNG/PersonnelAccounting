@@ -56,7 +56,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkCyan;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 485);
+            this.panel2.Location = new System.Drawing.Point(0, 479);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 85);
             this.panel2.TabIndex = 1;
@@ -64,7 +64,7 @@
             // login
             // 
             this.login.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.login.Location = new System.Drawing.Point(267, 200);
+            this.login.Location = new System.Drawing.Point(267, 186);
             this.login.Name = "login";
             this.login.Size = new System.Drawing.Size(200, 27);
             this.login.TabIndex = 2;
@@ -72,7 +72,7 @@
             // pass
             // 
             this.pass.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pass.Location = new System.Drawing.Point(139, 280);
+            this.pass.Location = new System.Drawing.Point(139, 266);
             this.pass.Name = "pass";
             this.pass.Size = new System.Drawing.Size(200, 27);
             this.pass.TabIndex = 3;
@@ -81,9 +81,9 @@
             // 
             this.loginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginBtn.Font = new System.Drawing.Font("Neo Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(191, 364);
+            this.loginBtn.Location = new System.Drawing.Point(191, 350);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(175, 50);
+            this.loginBtn.Size = new System.Drawing.Size(175, 48);
             this.loginBtn.TabIndex = 4;
             this.loginBtn.Text = "LOGIN";
             this.loginBtn.UseVisualStyleBackColor = true;
@@ -92,10 +92,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Neo Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(191, 126);
+            this.label1.BackColor = System.Drawing.Color.DarkCyan;
+            this.label1.Font = new System.Drawing.Font("Neo Sans", 22F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(191, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 30);
+            this.label1.Size = new System.Drawing.Size(230, 37);
             this.label1.TabIndex = 6;
             this.label1.Text = "Authentication";
             // 
@@ -104,7 +106,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(197, 326);
+            this.label2.Location = new System.Drawing.Point(197, 312);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 16);
             this.label2.TabIndex = 7;
@@ -115,9 +117,9 @@
             this.eyeBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.eyeBox.Image = global::DataBase_uchet.Properties.Resources.crossedEye;
             this.eyeBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("eyeBox.InitialImage")));
-            this.eyeBox.Location = new System.Drawing.Point(349, 280);
+            this.eyeBox.Location = new System.Drawing.Point(349, 266);
             this.eyeBox.Name = "eyeBox";
-            this.eyeBox.Size = new System.Drawing.Size(27, 27);
+            this.eyeBox.Size = new System.Drawing.Size(27, 25);
             this.eyeBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.eyeBox.TabIndex = 8;
             this.eyeBox.TabStop = false;
@@ -127,7 +129,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Neo Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(309, 174);
+            this.label3.Location = new System.Drawing.Point(309, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 20);
             this.label3.TabIndex = 9;
@@ -137,7 +139,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Neo Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(192, 254);
+            this.label4.Location = new System.Drawing.Point(192, 240);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 20);
             this.label4.TabIndex = 10;
@@ -148,7 +150,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(400, 570);
+            this.ClientSize = new System.Drawing.Size(400, 564);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.eyeBox);
@@ -159,8 +161,9 @@
             this.Controls.Add(this.login);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.Text = "Authentication";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.eyeBox)).EndInit();

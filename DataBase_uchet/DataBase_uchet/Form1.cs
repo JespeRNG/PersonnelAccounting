@@ -51,14 +51,18 @@ namespace DataBase_uchet
             cmd.CommandText = "SELECT `Pass` FROM `users` WHERE Login = @login";
             string password = (string)cmd.ExecuteScalar();
             db.closeConnection();
-
+            string err;
             if(ableToLogin == "yes")
             {
                 if (pass.Text == password)
                 {
                     MainForm mf = new MainForm(login.Text, this);
                     mf.Show();
+                    eyeBox.Image = Image.FromFile(@"..\..\imgs\crossedEye.png");
+                    pass.UseSystemPasswordChar = true;
+                    check = false;
                     this.Hide();
+
                     triesToEnter = 0;
                     pass.Text = "";
                     login.Text = "";
@@ -67,9 +71,11 @@ namespace DataBase_uchet
                 else
                 {
                     triesToEnter++;
+                    err = "Wrong login or password!";
                     if (triesToEnter > 2)
                     {
-                        label2.Text = "Authentication has been blocked!";
+                        err = "Authentication has been blocked!";
+                        label2.Text = err;
                         MessageBox.Show("Authentication has been blocked\n       after 3 atempts to enter!");
                         cmd.CommandText = "UPDATE `users` SET `AbleToLogin`=\"no\" WHERE 1";
                         db.openConnection();
@@ -78,7 +84,7 @@ namespace DataBase_uchet
                         label2.Left = (this.Width / 2) - label2.Width / 2;
                         label2.Show();
                     }
-                    label2.Text = "Wrong login or password!";
+                    label2.Text = err;
                     label2.Left = (this.Width / 2) - label2.Width / 2;
                     label2.Show();
                 }
@@ -95,8 +101,6 @@ namespace DataBase_uchet
                 label2.Left = (this.Width / 2) - label2.Width / 2;
                 label2.Show();
             }
-
-            
         }
         bool check = false;
         private void eyeBox_Click(object sender, EventArgs e)

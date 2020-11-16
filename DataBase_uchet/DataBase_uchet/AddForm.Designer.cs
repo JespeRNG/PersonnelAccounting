@@ -95,6 +95,7 @@
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(200, 26);
             this.lName.TabIndex = 0;
+            this.lName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lName_KeyPress);
             // 
             // fName
             // 
@@ -103,6 +104,7 @@
             this.fName.Name = "fName";
             this.fName.Size = new System.Drawing.Size(200, 26);
             this.fName.TabIndex = 1;
+            this.fName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fName_KeyPress);
             // 
             // mName
             // 
@@ -111,6 +113,7 @@
             this.mName.Name = "mName";
             this.mName.Size = new System.Drawing.Size(200, 26);
             this.mName.TabIndex = 2;
+            this.mName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mName_KeyPress);
             // 
             // telegram
             // 
@@ -119,6 +122,7 @@
             this.telegram.Name = "telegram";
             this.telegram.Size = new System.Drawing.Size(200, 26);
             this.telegram.TabIndex = 3;
+            this.telegram.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telegram_KeyPress);
             // 
             // label1
             // 
@@ -134,7 +138,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Neo Sans", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(33, 179);
+            this.label2.Location = new System.Drawing.Point(33, 174);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 8;
@@ -197,6 +201,7 @@
             this.phoneNum.Name = "phoneNum";
             this.phoneNum.Size = new System.Drawing.Size(200, 26);
             this.phoneNum.TabIndex = 14;
+            this.phoneNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.phoneNum_KeyPress);
             // 
             // phoneNum2
             // 
@@ -205,6 +210,7 @@
             this.phoneNum2.Name = "phoneNum2";
             this.phoneNum2.Size = new System.Drawing.Size(200, 26);
             this.phoneNum2.TabIndex = 15;
+            this.phoneNum2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.phoneNum2_KeyPress);
             // 
             // label8
             // 
@@ -233,6 +239,7 @@
             this.address.Name = "address";
             this.address.Size = new System.Drawing.Size(200, 26);
             this.address.TabIndex = 18;
+            this.address.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.address_KeyPress);
             // 
             // label10
             // 
@@ -306,7 +313,7 @@
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(109, 36);
             this.addButton.TabIndex = 26;
-            this.addButton.Text = "Add a personnel";
+            this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
@@ -554,6 +561,7 @@
             this.twitter.Name = "twitter";
             this.twitter.Size = new System.Drawing.Size(200, 26);
             this.twitter.TabIndex = 44;
+            this.twitter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.twitter_KeyPress);
             // 
             // label19
             // 
@@ -572,6 +580,7 @@
             this.instagram.Name = "instagram";
             this.instagram.Size = new System.Drawing.Size(200, 26);
             this.instagram.TabIndex = 42;
+            this.instagram.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.instagram_KeyPress);
             // 
             // label21
             // 
@@ -600,7 +609,7 @@
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Neo Sans", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.Red;
-            this.label24.Location = new System.Drawing.Point(100, 172);
+            this.label24.Location = new System.Drawing.Point(100, 167);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(15, 16);
             this.label24.TabIndex = 45;
@@ -757,10 +766,12 @@
             this.Controls.Add(this.fName);
             this.Controls.Add(this.lName);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddForm_FormClosing);
             this.Load += new System.EventHandler(this.AddForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

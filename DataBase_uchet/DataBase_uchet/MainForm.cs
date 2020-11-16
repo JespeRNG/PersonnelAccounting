@@ -10,6 +10,7 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using MySql.Data.Types;
 using Bank;
+using System.Text.RegularExpressions;
 using MySqlX.XDevAPI.Relational;
 using System.CodeDom;
 
@@ -22,9 +23,10 @@ namespace DataBase_uchet
         DataTable DT;
         DB db = new DB();
         DataView DV = new DataView();
-        public MainForm()
-        {
-        }
+        Validation valInp = new Validation();
+        string s;
+        TextBox innerTextBox;
+        DataGridViewCell cellCurr;
         public MainForm(string user, Form fm)
         {
             this.fm = fm;
@@ -35,6 +37,8 @@ namespace DataBase_uchet
         {
             AddForm af = new AddForm();
             af.ShowDialog(this);
+            deletingBtns();
+            LoadInfo();
         }
         public void MainForm_Load(object sender, EventArgs e)
         {
@@ -71,7 +75,7 @@ namespace DataBase_uchet
                     btnn.Text = "...";
                     btnn.UseColumnTextForButtonValue = true;
                     btnn.FlatStyle = FlatStyle.Flat;
-                    btnn.CellTemplate.Style.BackColor = Color.SkyBlue;
+                    btnn.CellTemplate.Style.BackColor = Color.SteelBlue;
                     btnn.CellTemplate.Style.ForeColor = Color.White;
                     dataGridView1.Columns.Add(btnn);
                 }
@@ -107,13 +111,56 @@ namespace DataBase_uchet
             MySqlDataAdapter ad = new MySqlDataAdapter();
             ad.SelectCommand = command;
             ad.Fill(DT);
-
             db.closeConnection();
-
             dataGridView1.DataSource = DT;
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[11].HeaderText = "Date Of Update";
+            dataGridView1.Columns[12].HeaderText = "Current Address";
 
             addBtns();
+
+            // Positioning Inputs
+            lNameInp.Width = dataGridView1.GetCellDisplayRectangle(1, 0, false).Width - 10;
+            lNameInp.Left = (dataGridView1.GetCellDisplayRectangle(1, 0, false).X + lNameInp.Width/2) - lNameInp.Width/2 + 5;
+
+            fNameInp.Width = dataGridView1.GetCellDisplayRectangle(2, 0, false).Width - 10;
+            fNameInp.Left = (dataGridView1.GetCellDisplayRectangle(2, 0, false).X + fNameInp.Width / 2) - fNameInp.Width / 2 + 5;
+
+            mNameInp.Width = dataGridView1.GetCellDisplayRectangle(3, 0, false).Width - 10;
+            mNameInp.Left = (dataGridView1.GetCellDisplayRectangle(3, 0, false).X + mNameInp.Width / 2) - mNameInp.Width / 2 + 5;
+
+            dobInp.Width = dataGridView1.GetCellDisplayRectangle(4, 0, false).Width - 10;
+            dobInp.Left = (dataGridView1.GetCellDisplayRectangle(4, 0, false).X + dobInp.Width / 2) - dobInp.Width / 2 + 5;
+
+            ndayInp.Width = dataGridView1.GetCellDisplayRectangle(5, 0, false).Width - 10;
+            ndayInp.Left = (dataGridView1.GetCellDisplayRectangle(5, 0, false).X + ndayInp.Width / 2) - ndayInp.Width / 2 + 5;
+
+            hiredInp.Width = dataGridView1.GetCellDisplayRectangle(6, 0, false).Width - 10;
+            hiredInp.Left = (dataGridView1.GetCellDisplayRectangle(6, 0, false).X + hiredInp.Width / 2) - hiredInp.Width / 2 + 5;
+
+            depInp.Width = dataGridView1.GetCellDisplayRectangle(7, 0, false).Width - 10;
+            depInp.Left = (dataGridView1.GetCellDisplayRectangle(7, 0, false).X + depInp.Width / 2) - depInp.Width / 2 + 5;
+
+            posInp.Width = dataGridView1.GetCellDisplayRectangle(8, 0, false).Width - 10;
+            posInp.Left = (dataGridView1.GetCellDisplayRectangle(8, 0, false).X + posInp.Width / 2) - posInp.Width / 2 + 5;
+
+            rankInp.Width = dataGridView1.GetCellDisplayRectangle(9, 0, false).Width - 10;
+            rankInp.Left = (dataGridView1.GetCellDisplayRectangle(9, 0, false).X + rankInp.Width / 2) - rankInp.Width / 2 + 5;
+
+            phoneInp.Width = dataGridView1.GetCellDisplayRectangle(10, 0, false).Width - 10;
+            phoneInp.Left = (dataGridView1.GetCellDisplayRectangle(10, 0, false).X + phoneInp.Width / 2) - phoneInp.Width / 2 + 5;
+
+            dupdInp.Width = dataGridView1.GetCellDisplayRectangle(11, 0, false).Width - 10;
+            dupdInp.Left = (dataGridView1.GetCellDisplayRectangle(11, 0, false).X + dupdInp.Width / 2) - dupdInp.Width / 2 + 5;
+
+            addInp.Width = dataGridView1.GetCellDisplayRectangle(12, 0, false).Width - 10;
+            addInp.Left = (dataGridView1.GetCellDisplayRectangle(12, 0, false).X + addInp.Width / 2) - addInp.Width / 2 + 5;
+
+            mailInp.Width = dataGridView1.GetCellDisplayRectangle(13, 0, false).Width - 10;
+            mailInp.Left = (dataGridView1.GetCellDisplayRectangle(13, 0, false).X + mailInp.Width / 2) - mailInp.Width / 2 + 5;
+            // Positioning Inputs
         }
+
         private void editCheck_CheckedChanged(object sender, EventArgs e)
         {
             if (editCheck.Checked == true)
@@ -177,7 +224,6 @@ namespace DataBase_uchet
         //Function to find the remove button in a table
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(e.ColumnIndex.ToString());
             if (e.ColumnIndex == 14)
                 if (dataGridView1.Rows[e.RowIndex].Cells[14].Value.ToString() == "Remove")
                 {
@@ -216,26 +262,6 @@ namespace DataBase_uchet
                         nickf.Show();
                     }
         }
-
-        private void updBtn_Click(object sender, EventArgs e)
-        {
-            string id = dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Lname = dataGridView1[1, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Fname = dataGridView1[2, dataGridView1.CurrentRow.Index].Value.ToString();
-            string Mname = dataGridView1[3, dataGridView1.CurrentRow.Index].Value.ToString();
-            string columnName = dataGridView1.CurrentCell.OwningColumn.HeaderText;
-            string value = dataGridView1.CurrentCell.Value.ToString();
-
-            db.openConnection();
-            MySqlCommand command = new MySqlCommand("UPDATE `staff` SET `" + columnName + "`= '" + value + "' WHERE " +
-                " `ID` = " + id + "", db.GetConnection());
-
-            if (command.ExecuteNonQuery() == 1)
-                MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
-
-            db.closeConnection();
-        }
-
         private void label4_Click(object sender, EventArgs e)
         {
             rfrshBtn_Click(sender, e);
@@ -251,33 +277,33 @@ namespace DataBase_uchet
             DV = new DataView(DT);
             
             if(sb.Length == 0)
-                sb.Append(column+ " LIKE '%" + inp + "%'");
+                sb.Append(column+ " LIKE '" + inp + "%'");
             if (lNameInp.Text.Length > 0 && lNameInp.Name != sender)
-                sb.Append(" AND `Last Name` LIKE '%" + lNameInp.Text + "%'");
+                sb.Append(" AND `Last Name` LIKE '" + lNameInp.Text + "%'");
             if (fNameInp.Text.Length > 0 && fNameInp.Name != sender)
-                sb.Append(" AND `Last Name` LIKE '%" + fNameInp.Text + "%'");
+                sb.Append(" AND `First Name` LIKE '" + fNameInp.Text + "%'");
             if (mNameInp.Text.Length > 0 && mNameInp.Name != sender)
-                sb.Append(" AND `Last Name` LIKE '%" + mNameInp.Text + "%'");
+                sb.Append(" AND `Middle Name` LIKE '" + mNameInp.Text + "%'");
             if (dobInp.Text.Length > 0 && dobInp.Name != sender)
-                sb.Append(" AND `Last Name` LIKE '%" + dobInp.Text + "%'");
+                sb.Append(" AND `Date Of Birth` LIKE '" + dobInp.Text + "%'");
             if (depInp.Text.Length > 0 && depInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + depInp.Text + "%'");
+                sb.Append(" AND `Department` LIKE '" + depInp.Text + "%'");
             if (posInp.Text.Length > 0 && posInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + posInp.Text + "%'");
+                sb.Append(" AND `Position` LIKE '" + posInp.Text + "%'");
             if (rankInp.Text.Length > 0 && rankInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + rankInp.Text + "%'");
+                sb.Append(" AND `Rank` LIKE '" + rankInp.Text + "%'");
             if (phoneInp.Text.Length > 0 && phoneInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + phoneInp.Text + "%'");
+                sb.Append(" AND `Phone Number` LIKE '" + phoneInp.Text + "%'");
             if (mailInp.Text.Length > 0 && mailInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + mailInp.Text + "%'");
+                sb.Append(" AND `eMail` LIKE '" + mailInp.Text + "%'");
             if (addInp.Text.Length > 0 && addInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + addInp.Text + "%'");
+                sb.Append(" AND `Current Living Address` LIKE '" + addInp.Text + "%'");
             if (hiredInp.Text.Length > 0 && hiredInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + hiredInp.Text + "%'");
+                sb.Append(" AND `Hire Date` LIKE '" + hiredInp.Text + "%'");
             if (ndayInp.Text.Length > 0 && ndayInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + ndayInp.Text + "%'");
+                sb.Append(" AND `Name-Day` LIKE '" + ndayInp.Text + "%'");
             if (dupdInp.Text.Length > 0 && dupdInp.Name != sender)
-                sb.Append(" AND `Department` LIKE '%" + dupdInp.Text + "%'");
+                sb.Append(" AND `Date Of Number Update` LIKE '" + dupdInp.Text + "%'");
 
             DV.RowFilter = sb.ToString();
             sb.Clear();
@@ -301,6 +327,129 @@ namespace DataBase_uchet
         {
             fm.Show();
             this.Close();
+        }
+        Validation val = new Validation();
+        private void updBtn_Click(object sender, EventArgs e)
+        {
+            bool check = true;
+            string id = dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Lname = dataGridView1[1, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Fname = dataGridView1[2, dataGridView1.CurrentRow.Index].Value.ToString();
+            string Mname = dataGridView1[3, dataGridView1.CurrentRow.Index].Value.ToString();
+            string columnName = dataGridView1.CurrentCell.OwningColumn.Name;
+            string value = dataGridView1.CurrentCell.Value.ToString();
+
+            if (columnName == "Date Of Birth" || columnName == "Date Of Number Update" || columnName == "Hire Date")
+            {
+                if (columnName == "Date Of Birth" && !val.checkDate(value, "dob") )
+                    check = false;
+                if (columnName == "Date Of Number Update" && !val.checkDate(value, "dupd"))
+                    check = false;
+                if (columnName == "Hire Date" && !val.checkDate(value, "hd"))
+                    check = false;
+            }
+            if (columnName == "Name-Day")
+                if (Regex.Matches(value, @"[,./+{};:-]").Count > 0)
+                {
+                    MessageBox.Show("Symbols aren't available!");
+                    check = false;
+                }
+            if (columnName == "eMail")
+                if (!val.isMailCorrect(value))
+                {
+                    MessageBox.Show("Symbols aren't available!");
+                    check = false;
+                }
+            if (check == true)
+            {  
+                db.openConnection();
+                MySqlCommand command = new MySqlCommand("UPDATE `staff` SET `" + columnName + "`= '" + value + "' WHERE " +
+                    " `ID` = " + id + "", db.GetConnection());
+                if (command.ExecuteNonQuery() == 1)
+                    MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
+                db.closeConnection();
+            }
+        }
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if(cellCurr == dataGridView1.CurrentCell)
+            {
+                if (e.Control is TextBox)
+                {
+                    innerTextBox = e.Control as TextBox;
+                    s = innerTextBox.Text;
+                    innerTextBox.KeyPress += innerTextBox_KeyPress;
+                }
+            }
+            else
+            {
+                if (e.Control is TextBox)
+                {
+                    innerTextBox = e.Control as TextBox;
+                    s = innerTextBox.Text;
+                    innerTextBox.KeyPress -= innerTextBox_KeyPress;
+                    innerTextBox.KeyPress += innerTextBox_KeyPress;
+                }
+            }
+            cellCurr = dataGridView1.CurrentCell;
+        }
+        private void innerTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+            string clmn = dataGridView1[dataGridView1.CurrentCell.ColumnIndex, dataGridView1.CurrentCell.RowIndex].OwningColumn.Name;
+            if (clmn == "First Name" || clmn == "Last Name" || clmn == "Middle Name" || clmn == "Rank" 
+                || clmn == "Department" || clmn == "Position")
+            {
+                if (s.Length < 16 && valInp.isSymbolicPress(e.KeyChar) || Convert.ToInt32(e.KeyChar) == 8)
+                {
+                    if (Convert.ToInt32(e.KeyChar) == 8 && s.Length > 0)
+                        s = s.Remove(s.Length - 1);
+                    else
+                        s += e.KeyChar;
+                    e.Handled = false;
+                    dataGridView1.CurrentCell.Value = s;
+                }
+            }
+            if (clmn == "Phone Number")
+            {
+                if (Regex.Matches(dataGridView1.CurrentCell.Value.ToString(), @"[,]").Count == 1)
+                    e.Handled = false;
+                else if (s.Length < 13 && valInp.isNumericPress(e.KeyChar, dataGridView1.CurrentCell.Value.ToString()) ||
+                            Convert.ToInt32(e.KeyChar) == 8)
+                {
+                    if (Convert.ToInt32(e.KeyChar) == 8 && s.Length > 0)
+                    {
+                        s = s.Remove(s.Length - 1);
+                    }
+                    else
+                    {
+                        s += e.KeyChar;
+                    }
+                    e.Handled = false;
+                    dataGridView1.CurrentCell.Value = s;
+                }
+                
+            }
+            else if(clmn == "Current Living Address")
+            {
+                if (s.Length < 16 && (valInp.isCombinedPress(e.KeyChar)
+                     || e.KeyChar == ' ') || Convert.ToInt32(e.KeyChar) == 8)
+                {
+                    if (Convert.ToInt32(e.KeyChar) == 8 && s.Length > 0)
+                    {
+                        s = s.Remove(s.Length - 1);
+                    }
+                    else
+                    {
+                        s += e.KeyChar;
+                    }
+                    e.Handled = false;
+                    dataGridView1.CurrentCell.Value = s;
+                }
+            }
+            else if (clmn == "eMail" || clmn == "Date Of Birth" || clmn == "Name-Day" || clmn == "Hire Date" 
+                || clmn == "Date Of Number Update")
+                e.Handled = false;
         }
     }
 }
