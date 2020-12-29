@@ -48,7 +48,6 @@ D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataB
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.exe.config
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.AddForm.resources
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.Form1.resources
-D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.MainForm.resources
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.Properties.Resources.resources
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.csproj.GenerateResource.cache
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.csproj.CoreCompileInputs.cache
@@ -56,3 +55,4 @@ D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataB
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.exe
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.pdb
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.Nicknames.resources
+D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.MainForm.resources

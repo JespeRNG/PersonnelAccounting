@@ -70,7 +70,7 @@ namespace DataBase_uchet
             command.Parameters.Add("@hiredate", MySqlDbType.VarChar).Value = hireDate.Value.ToString("dd.MM.yyyy");
             command.Parameters.Add("@dateofu", MySqlDbType.VarChar).Value = dateofupd.Value.ToString("dd.MM.yyyy");
 
-            if (val.isSymbolic(lName.Text,3,16)==true && val.isSymbolic(fName.Text,3,16) == true && val.isSymbolic(mName.Text, 3, 16) == true)
+            if (val.isSymbolic(lName.Text,3,16) == true && val.isSymbolic(fName.Text,3,16) == true && val.isSymbolic(mName.Text, 3, 16) == true)
             {
                 command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lName.Text;
                 command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fName.Text;

@@ -13,6 +13,7 @@ using Bank;
 using System.Text.RegularExpressions;
 using MySqlX.XDevAPI.Relational;
 using System.CodeDom;
+using System.Reflection;
 
 namespace DataBase_uchet
 {
@@ -32,6 +33,23 @@ namespace DataBase_uchet
             this.fm = fm;
             this.user = user;
             InitializeComponent();
+            SetDoubleBuffered(dataGridView1, true);
+        }
+        public void SetDoubleBuffered(Control c, bool value)
+        {
+            PropertyInfo pi = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic);
+            if (pi != null)
+            {
+                pi.SetValue(c, value, null);
+
+                MethodInfo mi = typeof(Control).GetMethod("SetStyle", BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic);
+                if (mi != null)
+                    mi.Invoke(c, new object[] { ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true });
+
+                mi = typeof(Control).GetMethod("UpdateStyles", BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic);
+                if (mi != null)
+                    mi.Invoke(c, null);
+            }
         }
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -249,7 +267,7 @@ namespace DataBase_uchet
                         dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() + " " +
                            dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString() + " " +
                            dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), user);
-                    nickf.Show();
+                    nickf.ShowDialog(this);
                 }
             if(user != "admin")
                 if (e.ColumnIndex == 14)

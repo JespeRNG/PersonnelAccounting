@@ -13,7 +13,7 @@ namespace DataBase_uchet
 {
     class Validation
     {
-        public bool isNumeric(string inp, string exp = @"^([+38][0-9]{12})$") => Regex.IsMatch(inp, exp) ? true : false;
+        public bool isNumeric(string inp, string exp = @"^([+]380)[0-9]{9}$") => Regex.IsMatch(inp, exp) ? true : false;
         public bool isMailCorrect(string inp, string exp = @"^[A-Za-z0-9._-]+@[A-Za-z0-9]+\.[A-Za-z]{2,5}$") => Regex.IsMatch(inp, exp) ? true : false;
         public bool isCombined(string inp, int min, int max, string exp = @"[a-zA-Z0-9.,-]") => (Regex.IsMatch(inp, exp) && inp.Length >= min && inp.Length <= max) ? true : false;
         public bool isSymbolic(string inp, int min, int max, string exp = @"^[a-zA-Z]{3,16}$") => (Regex.IsMatch(inp, exp) && inp.Length >= min && inp.Length <= max) ? true : false;
