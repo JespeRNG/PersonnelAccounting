@@ -56,6 +56,18 @@
     <Compile Include="AddForm.Designer.cs">
       <DependentUpon>AddForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComboBoxForm.Designer.cs">
+      <DependentUpon>ComboBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DateUpdate.Designer.cs">
+      <DependentUpon>DateUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -85,6 +97,12 @@
     <Compile Include="Validation.cs" />
     <EmbeddedResource Include="AddForm.resx">
       <DependentUpon>AddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComboBoxForm.resx">
+      <DependentUpon>ComboBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DateUpdate.resx">
+      <DependentUpon>DateUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

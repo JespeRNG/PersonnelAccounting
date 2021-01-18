@@ -56,3 +56,5 @@ D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataB
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.pdb
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.Nicknames.resources
 D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.MainForm.resources
+D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.ComboBoxForm.resources
+D:\gitProjects\PersonnelAccounting\DataBase_uchet\DataBase_uchet\obj\Debug\DataBase_uchet.DateUpdate.resources

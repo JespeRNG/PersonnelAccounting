@@ -55,6 +55,10 @@ namespace DataBase_uchet
         {
             AddForm af = new AddForm();
             af.ShowDialog(this);
+            TextBox[] tb = new TextBox[] { lNameInp, fNameInp, mNameInp, dobInp, depInp, posInp,
+                rankInp, phoneInp, addInp, mailInp, ndayInp, dupdInp, hiredInp };
+            foreach (TextBox t in tb)
+                t.Text = "";
             deletingBtns();
             LoadInfo();
         }
@@ -139,7 +143,7 @@ namespace DataBase_uchet
 
             // Positioning Inputs
             lNameInp.Width = dataGridView1.GetCellDisplayRectangle(1, 0, false).Width - 10;
-            lNameInp.Left = (dataGridView1.GetCellDisplayRectangle(1, 0, false).X + lNameInp.Width/2) - lNameInp.Width/2 + 5;
+            lNameInp.Left = (dataGridView1.GetCellDisplayRectangle(1, 0, false).X + lNameInp.Width / 2) - lNameInp.Width / 2 + 5;
 
             fNameInp.Width = dataGridView1.GetCellDisplayRectangle(2, 0, false).Width - 10;
             fNameInp.Left = (dataGridView1.GetCellDisplayRectangle(2, 0, false).X + fNameInp.Width / 2) - fNameInp.Width / 2 + 5;
@@ -217,7 +221,7 @@ namespace DataBase_uchet
             LoadInfo();
             TextBox[] tb = new TextBox[] { lNameInp, fNameInp, mNameInp, dobInp, depInp, posInp,
                 rankInp, phoneInp, addInp, mailInp, ndayInp, dupdInp, hiredInp };
-            foreach(TextBox t in tb)
+            foreach (TextBox t in tb)
                 t.Text = "";
         }
 
@@ -269,13 +273,27 @@ namespace DataBase_uchet
                            dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), user);
                     nickf.ShowDialog(this);
                 }
-            if(user != "admin")
+            if(editCheck.Checked && (e.ColumnIndex == 7 || e.ColumnIndex == 8 || e.ColumnIndex == 9))
+            {
+                ComboBoxForm cbf = new ComboBoxForm(dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString());
+                cbf.ShowDialog(this);
+                deletingBtns();
+                LoadInfo();
+            }
+            if (editCheck.Checked && (e.ColumnIndex == 5 || e.ColumnIndex == 11 || e.ColumnIndex == 6 || e.ColumnIndex == 4))
+            {
+                DateUpdate du = new DateUpdate(dataGridView1[0, dataGridView1.CurrentRow.Index].Value.ToString(), e.ColumnIndex);
+                du.ShowDialog(this);
+                deletingBtns();
+                LoadInfo();
+            }
+            if (user != "admin")
                 if (e.ColumnIndex == 14)
                     if (dataGridView1.Rows[e.RowIndex].Cells[14].Value.ToString() == "...")
                     {
                         Nicknames nickf = new Nicknames(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
-                           dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString()+ " " +
-                           dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString()+ " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString() + " " +
+                           dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString() + " " +
                            dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), user);
                         nickf.Show();
                     }
@@ -291,11 +309,11 @@ namespace DataBase_uchet
         private void Request(string inp, string column, string sender)
         {
             deletingBtns();
-            
+
             DV = new DataView(DT);
-            
-            if(sb.Length == 0)
-                sb.Append(column+ " LIKE '" + inp + "%'");
+
+            if (sb.Length == 0)
+                sb.Append(column + " LIKE '" + inp + "%'");
             if (lNameInp.Text.Length > 0 && lNameInp.Name != sender)
                 sb.Append(" AND `Last Name` LIKE '" + lNameInp.Text + "%'");
             if (fNameInp.Text.Length > 0 && fNameInp.Name != sender)
@@ -356,10 +374,11 @@ namespace DataBase_uchet
             string Mname = dataGridView1[3, dataGridView1.CurrentRow.Index].Value.ToString();
             string columnName = dataGridView1.CurrentCell.OwningColumn.Name;
             string value = dataGridView1.CurrentCell.Value.ToString();
+            //MessageBox.Show(columnName);
 
-            if (columnName == "Date Of Birth" || columnName == "Date Of Number Update" || columnName == "Hire Date")
+            /*if (columnName == "Date Of Birth" || columnName == "Date Of Number Update" || columnName == "Hire Date")
             {
-                if (columnName == "Date Of Birth" && !val.checkDate(value, "dob") )
+                if (columnName == "Date Of Birth" && !val.checkDate(value, "dob"))
                     check = false;
                 if (columnName == "Date Of Number Update" && !val.checkDate(value, "dupd"))
                     check = false;
@@ -371,15 +390,33 @@ namespace DataBase_uchet
                 {
                     MessageBox.Show("Symbols aren't available!");
                     check = false;
-                }
+                }*/
             if (columnName == "eMail")
                 if (!val.isMailCorrect(value))
                 {
-                    MessageBox.Show("Symbols aren't available!");
+                    MessageBox.Show("Incorrect value");
+                    check = false;
+                }
+            if (columnName == "First Name" || columnName == "Last Name" || columnName == "Middle Name")
+                if (!val.isSymbolic(value, 3, 16))
+                {
+                    MessageBox.Show("Incorrect value");
+                    check = false;
+                }
+            if (columnName == "Current Living Address")
+                if (!val.isValidAddres(value))
+                {
+                    MessageBox.Show("Incorrect value");
+                    check = false;
+                }
+            if (columnName == "Phone Number")
+                if (!val.isNumeric(value))
+                {
+                    MessageBox.Show("Incorrect value");
                     check = false;
                 }
             if (check == true)
-            {  
+            {
                 db.openConnection();
                 MySqlCommand command = new MySqlCommand("UPDATE `staff` SET `" + columnName + "`= '" + value + "' WHERE " +
                     " `ID` = " + id + "", db.GetConnection());
@@ -387,10 +424,17 @@ namespace DataBase_uchet
                     MessageBox.Show("Successfully updated " + columnName + " for " + Lname + " " + Fname + " " + Mname);
                 db.closeConnection();
             }
+            else
+            {
+                db.openConnection();
+                MySqlCommand command = new MySqlCommand("SELECT `"+ columnName + "` FROM `staff` WHERE `id` = " + id, db.GetConnection());
+                dataGridView1.CurrentCell.Value = command.ExecuteScalar();
+                db.closeConnection();
+            }
         }
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        /*private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if(cellCurr == dataGridView1.CurrentCell)
+            if (cellCurr == dataGridView1.CurrentCell)
             {
                 if (e.Control is TextBox)
                 {
@@ -410,8 +454,8 @@ namespace DataBase_uchet
                 }
             }
             cellCurr = dataGridView1.CurrentCell;
-        }
-        private void innerTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        }*/
+        /*private void innerTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
             string clmn = dataGridView1[dataGridView1.CurrentCell.ColumnIndex, dataGridView1.CurrentCell.RowIndex].OwningColumn.Name;
@@ -446,7 +490,6 @@ namespace DataBase_uchet
                     e.Handled = false;
                     dataGridView1.CurrentCell.Value = s;
                 }
-                
             }
             else if(clmn == "Current Living Address")
             {
@@ -468,6 +511,6 @@ namespace DataBase_uchet
             else if (clmn == "eMail" || clmn == "Date Of Birth" || clmn == "Name-Day" || clmn == "Hire Date" 
                 || clmn == "Date Of Number Update")
                 e.Handled = false;
-        }
-    }
+        }*/
+    }   
 }

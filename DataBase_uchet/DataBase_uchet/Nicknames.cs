@@ -24,7 +24,17 @@ namespace DataBase_uchet
 
         public static void ClearFormControls(Form form)
         {
-            
+            int cb = 0;
+            foreach (Control control in form.Controls)
+                if (control is PictureBox)
+                    cb++;
+            while (cb > 0)
+                foreach (Control control in form.Controls)
+                    if (control is PictureBox)
+                    {
+                        form.Controls.Remove(control);
+                        cb--;
+                    }
         }
         public Nicknames(string id, string fio, string user)
         {
@@ -66,6 +76,7 @@ namespace DataBase_uchet
                     if (MessageBox.Show("Are you sure you want to close this window?\nAll the filled fields will be erased!",
                         "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
+                        ClearFormControls(this);
                         twitBox.Visible = false;
                         twitBox.Enabled = false;
                         telegBox.Visible = false;
@@ -79,6 +90,7 @@ namespace DataBase_uchet
                 }
                 else
                 {
+                    ClearFormControls(this);
                     twitBox.Visible = false;
                     twitBox.Enabled = false;
                     telegBox.Visible = false;
@@ -93,7 +105,6 @@ namespace DataBase_uchet
             else
                 this.Close();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if(button1.Text == "Edit")
@@ -118,7 +129,7 @@ namespace DataBase_uchet
             else
             {
                 ClearFormControls(this);
-                if (val.isCombined(twitBox.Text, 3, 16) && val.isCombined(instaBox.Text, 3, 16) && val.isCombined(telegBox.Text, 3, 16) && 
+                if (val.isNickname(twitBox.Text) && val.isNickname(instaBox.Text) && val.isNickname(telegBox.Text) && 
                     (twitBox.Text != twit || instaBox.Text != inst || telegBox.Text != teleg))
                 {
                     cmd.Connection = db.GetConnection();
@@ -145,11 +156,11 @@ namespace DataBase_uchet
                 }
                 else
                 {
-                    if (!val.isCombined(twitBox.Text, 3, 16))
+                    if (!val.isNickname(twitBox.Text))
                         this.Controls.Add(val.CreateImg((twitBox.Left + twitBox.Width) + 5, twitBox.Top + 3, "twitter"));
-                    if (!val.isCombined(instaBox.Text, 3, 16))
+                    if (!val.isNickname(instaBox.Text))
                         this.Controls.Add(val.CreateImg((instaBox.Left + instaBox.Width) + 5, instaBox.Top + 3, "instagram"));
-                    if (!val.isCombined(telegBox.Text, 3, 16))
+                    if (!val.isNickname(telegBox.Text))
                         this.Controls.Add(val.CreateImg((telegBox.Left + telegBox.Width) + 5, telegBox.Top + 3, "telegram"));
                 }
             }

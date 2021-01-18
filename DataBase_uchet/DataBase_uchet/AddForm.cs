@@ -110,7 +110,7 @@ namespace DataBase_uchet
                 this.Controls.Add(val.CreateImg((phoneNum.Left + phoneNum.Width) + 5, phoneNum.Top + 3, "phoneNum"));
                 isValid = false;
             }
-            if (val.isCombined(address.Text,3,16))
+            if (val.isValidAddres(address.Text))
                 command.Parameters.Add("@curaddress", MySqlDbType.VarChar).Value = address.Text;
             else
             {
@@ -130,7 +130,7 @@ namespace DataBase_uchet
                 , db.GetConnection());
 
             //Social Networks
-            if (val.isCombined(telegram.Text, 0, 16))
+            if (val.isNickname(telegram.Text))
                 netcmd.Parameters.Add("@telegram", MySqlDbType.VarChar).Value = telegram.Text;
             else if (telegram.Text.Length == 0)
                 netcmd.Parameters.Add("@telegram", MySqlDbType.VarChar).Value = "-";
@@ -139,7 +139,7 @@ namespace DataBase_uchet
                 this.Controls.Add(val.CreateImg((groupBox1.Left + groupBox1.Width) + 5, groupBox1.Top + 55, "telegram"));
                 isValid = false;
             }
-            if (val.isCombined(instagram.Text, 0, 16))
+            if (val.isNickname(instagram.Text))
                 netcmd.Parameters.Add("@instagram", MySqlDbType.VarChar).Value = instagram.Text;
             else if (instagram.Text.Length == 0)
                 netcmd.Parameters.Add("@instagram", MySqlDbType.VarChar).Value = "-";
@@ -148,7 +148,7 @@ namespace DataBase_uchet
                 this.Controls.Add(val.CreateImg((groupBox1.Left + groupBox1.Width) + 5, groupBox1.Top + 105, "instagram"));
                 isValid = false;
             }
-            if (val.isCombined(twitter.Text, 0, 16))
+            if (val.isNickname(twitter.Text))
                 netcmd.Parameters.Add("@twitter", MySqlDbType.VarChar).Value = twitter.Text;
             else if (twitter.Text.Length == 0)
                 netcmd.Parameters.Add("@twitter", MySqlDbType.VarChar).Value = "-";
@@ -277,7 +277,7 @@ namespace DataBase_uchet
         {
             e.Handled = true;
 
-            if (address.Text.Length < 16 && val.isCombinedPress(e.KeyChar) || Convert.ToInt32(e.KeyChar) == 8 ||
+            if (address.Text.Length < 52 && val.isCombinedPress(e.KeyChar) || Convert.ToInt32(e.KeyChar) == 8 ||
                     e.KeyChar == '/' || e.KeyChar == ' ')
                 e.Handled = false;
         }
